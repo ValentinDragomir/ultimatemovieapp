@@ -2,7 +2,6 @@
     <div class="search">
         <input type="text" name="search" placeholder="Enter movie title" v-model="query" @keypress.enter="handleSearch">
         <button v-on:click="handleSearch">Search</button>
-        
     </div>
 </template>
 
@@ -30,6 +29,8 @@ export default {
     padding: 10px;
     width: 400px;
     border-radius: 10px;
+    color: darkblue;
+    background-color: lightsteelblue;
 }
 .search button {
     padding: 10px;

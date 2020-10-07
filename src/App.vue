@@ -10,18 +10,18 @@
           alt="Logo"
           class="shrink mr-2"
           contain
-          src=""
+          src="./assets/logo.png"
           transition="scale-transition"
           width="40"
         />
 
         <v-img
           alt="Name"
-          class="shrink mt-1 hidden-sm-and-down"
+          class="shrink mt-1"
           contain
           min-width="100"
-          src=""
-          width="100"
+          src="./assets/name.png"
+          width="200"
         />
       </div>
 
@@ -29,7 +29,7 @@
 
       <v-tooltip v-if="!$vuetify.theme.dark" bottom>
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" color="info" small fab @click="darkMode">
+          <v-btn v-on="on" color="black" small fab @click="darkMode">
             <v-icon class="mr-1">mdi-moon-waxing-crescent</v-icon>
           </v-btn>
         </template>
@@ -38,7 +38,7 @@
 
       <v-tooltip v-else bottom>
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" color="info" small fab @click="darkMode">
+          <v-btn v-on="on" color="black" small fab @click="darkMode">
             <v-icon color="yellow">mdi-white-balance-sunny</v-icon>
           </v-btn>
         </template>
@@ -71,7 +71,7 @@ export default {
   methods: {
     handleSearch(query) {
       this.film = []
-      fetch('http://www.omdbapi.com/?t=' + query + '&apikey=cab5b230')
+      fetch('http://www.omdbapi.com/?t=' + query + '&plot=full' + '&apikey=cab5b230')
         .then((res) => { return res.json() })
         .then((res) => {
           this.film = res

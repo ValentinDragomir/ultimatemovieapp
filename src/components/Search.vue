@@ -1,7 +1,32 @@
 <template>
     <div class="search">
-        <input type="text" name="search" placeholder="Enter movie title" v-model="query" @keypress.enter="handleSearch">
-        <button v-on:click="handleSearch">Search</button>
+        <v-card
+          color="blue lighten-2"
+          class="mx-auto mt-12 mb-4"
+          min-width="640"
+          max-width="960"
+        >
+            <v-card-text>
+                <v-text-field
+                  name="search"
+                  v-model="query"
+                  @keypress.enter="handleSearch"
+                  placeholder="Start typing a movie title"
+                  prepend-icon="mdi-film"
+                ></v-text-field>
+            </v-card-text>
+        </v-card>
+        <v-card-actions class="justify-center">
+            <v-btn
+              v-on:click="handleSearch"
+              depressed
+              color="blue lighten-2"
+              class="justify-center"
+            >
+              <v-icon left>mdi-magnify</v-icon>
+              Search
+            </v-btn>
+        </v-card-actions>
     </div>
 </template>
 
@@ -23,21 +48,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.search input {
-    padding: 10px;
-    width: 400px;
-    border-radius: 10px;
-    color: darkblue;
-    background-color: lightsteelblue;
-}
-.search button {
-    padding: 10px;
-    margin-left: 5px;
-    width: 100px;
-    border-radius: 10px;
-    background-color: lightsteelblue;
-    color: darkblue
-}
-</style>

@@ -1,11 +1,11 @@
 <template>
     <div class="film">
-        <div v-bind="film" v-if="film.Error!='Movie not found!'">
+        <div v-bind="film" v-show="film.Title">
             <v-card
               elevation="2"
               outlined 
               shaped
-              class="mx-auto my-12"
+              class="mx-auto my-12 text-center"
               min-width="640"
               max-width="1280"
             >
@@ -34,8 +34,16 @@
             </div>
             </v-card>
         </div>
-        <div v-bind="film" v-if="film.Error=='Movie not found'">
-            <h4>{{ film.Error }}</h4>
+        <div v-bind="film" v-if="film.Error=='Movie not found!'">
+            <v-alert
+              color="blue lighten-2"
+              icon="mdi-filmstrip-off"
+              border="left"
+              class="mx-auto my-12 pe-12 text-center"
+              width="320"
+            >
+                <h4>{{ film.Error }}</h4>
+            </v-alert>
         </div>
     </div>
 </template>

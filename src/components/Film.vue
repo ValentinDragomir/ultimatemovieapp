@@ -28,15 +28,15 @@
                     <h4 class="my-2">Actors: {{ film.Actors }}</h4>
                     <h4 class="my-2">Production: {{ film.Production }}</h4>
                     <h4 class="my-2">Awards: {{ film.Awards }}</h4>
-                    <h4 class="my-6">{{ film.Plot }}</h4>
+                    <h4 class="my-6">{{ film.Plot | truncate(1000, '...') }}</h4>
                     </v-card-text>
                 </div>
             </div>
             </v-card>
         </div>
-        <div v-bind="film" v-if="film.Error=='Movie not found!'">
+        <!-- <div v-bind="film" v-if="film.Error=='Movie not found!'">
             <v-alert
-              color="blue lighten-2"
+              color=""
               icon="mdi-filmstrip-off"
               border="left"
               class="mx-auto my-12 pe-12 text-center"
@@ -44,12 +44,24 @@
             >
                 <h4>{{ film.Error }}</h4>
             </v-alert>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 export default {
-    props: ['film']
+    props: ['film'],
+
+    filters: {
+        truncate (text, length, suffix) {
+            if (!text) return
+            
+            if (text.length > length) {
+                return text.substring(0, length) + suffix
+            } else {
+                return text
+            }
+        },
+    },
 }
 </script>

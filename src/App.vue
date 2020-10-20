@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app id="main" :style="{background: $vuetify.theme.themes[theme].background}">
         <v-app-bar
           app
           color="primary"
@@ -47,48 +47,31 @@
         </v-app-bar>
 
         <v-main>
-        <Search v-on:requestedSearch="handleSearch"></Search>
-        <Film v-bind:film="film"></Film>
+        <Search></Search>
         </v-main>
     </v-app>
 </template>
 
 <script>
 import Search from './components/Search.vue'
-import Film from './components/Film.vue'
 
 export default {
     name: 'App',
+
     components: {
         Search,
-        Film,
     },
-    data() {
-        return {
-        film: []
-        }
-    },
+
     methods: {
-        handleSearch(query) {
-        this.film = []
-        fetch('http://www.omdbapi.com/?t=' + query + '&plot=full' + '&apikey=cab5b230')
-            .then((res) => { return res.json() })
-            .then((res) => {
-            this.film = res
-            console.log(this.film.error)
-            })
-        },
         darkMode() {
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-        }
-    }
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+        },
+    },
+
+    computed: {
+        theme() {
+            return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+        },
+    },
 }
 </script>
-
-<style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-</style>

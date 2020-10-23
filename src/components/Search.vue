@@ -1,24 +1,21 @@
 <template>
     <div>
         <v-card
-            color=""
             class="mx-auto my-12"
             min-width="640"
             max-width="960"
         >
             <v-card-text>
             <v-autocomplete
-                @change="onClickItem"
+                @change="selectItem"
                 v-model="model"
                 :items="items"
                 :loading="isLoading"
                 :search-input.sync="search"
-                color=""
                 hide-no-data
                 hide-selected
                 item-text="Title"
                 item-value="API"
-                label=""
                 placeholder="Start typing a movie title"
                 prepend-icon="mdi-film"
                 return-object
@@ -30,7 +27,6 @@
 
             <v-btn
                 :disabled="!model"
-                color=""
                 x-small
                 @click="
                     model = null
@@ -65,7 +61,9 @@ export default {
     },
 
     methods: {
-        onClickItem(item) {
+        selectItem(item) {
+            this.film.Title = null
+
             fetch(`http://www.omdbapi.com/?i=${item.imdbID}&plot=full&apikey=${this.apiKey}`)
                 .then((res) => { return res.json() })
                 .then((res) => {
@@ -88,15 +86,14 @@ export default {
     watch: {
         search (val) {
             if (!val) return
-
-            if (this.isLoading) return
-
-            this.isLoading = true
-            console.log('isLoading=true')
-
+            
             if (this.timeout) clearTimeout(this.timeout)
 
             this.timeout = setTimeout(() => {
+                if (this.isLoading) return
+
+                this.isLoading = true
+
                 fetch(`http://www.omdbapi.com/?s=${this.search}&apikey=${this.apiKey}`)
                     .then(res => res.json())
                     .then(res => {
@@ -109,7 +106,7 @@ export default {
                         console.log(err)
                     })
                     .finally(() => (this.isLoading = false))
-            }, 500)
+            }, 300)
         },
     },
 }

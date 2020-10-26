@@ -13,7 +13,6 @@
                 :loading="isLoading"
                 :search-input.sync="search"
                 hide-no-data
-                hide-selected
                 item-text="Title"
                 item-value="API"
                 placeholder="Start typing a movie title"
@@ -29,8 +28,9 @@
                 :disabled="!model"
                 x-small
                 @click="
+                    apiSearch = []
                     model = null
-                    film.Title = null
+                    film = []
                 "
             >
                 Clear
@@ -53,7 +53,7 @@ export default {
         isLoading: false,
         model: null,
         search: null,
-        film: []
+        film: [],
     }),
     
     components: {
@@ -62,13 +62,21 @@ export default {
 
     methods: {
         selectItem(item) {
-            this.film.Title = null
+            this.film = []
 
             fetch(`http://www.omdbapi.com/?i=${item.imdbID}&plot=full&apikey=${this.apiKey}`)
-                .then((res) => { return res.json() })
+                .then((res) => res.json())
                 .then((res) => {
+                    this.str = JSON.stringify(res)
+                    this.str = this.str.replace("\"Title\":", "\"theTitle\":")
+                    res = JSON.parse(this.str)
                     this.film = res
-            })
+                    this.apiSearch = []
+                    this.search = null
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         },
     },
 
@@ -92,6 +100,8 @@ export default {
             this.timeout = setTimeout(() => {
                 if (this.isLoading) return
 
+                if (this.search == null) return
+
                 this.isLoading = true
 
                 fetch(`http://www.omdbapi.com/?s=${this.search}&apikey=${this.apiKey}`)
@@ -101,12 +111,16 @@ export default {
                         this.apiSearch = Search
                         this.apiTotalResults = totalResults,
                         this.apiResponse = Response
+                        if (this.search == null) return
+                        if (this.apiResponse == 'False') {
+                            this.film = res
+                        }
                     })
                     .catch(err => {
                         console.log(err)
                     })
                     .finally(() => (this.isLoading = false))
-            }, 300)
+            }, 500)
         },
     },
 }

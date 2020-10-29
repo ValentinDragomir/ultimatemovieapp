@@ -64,7 +64,7 @@ export default {
         selectItem(item) {
             this.film = []
 
-            fetch(`http://www.omdbapi.com/?i=${item.imdbID}&plot=full&apikey=${this.apiKey}`)
+            fetch(`https://www.omdbapi.com/?i=${item.imdbID}&plot=full&apikey=${this.apiKey}`)
                 .then((res) => res.json())
                 .then((res) => {
                     this.str = JSON.stringify(res)
@@ -104,7 +104,7 @@ export default {
 
                 this.isLoading = true
 
-                fetch(`http://www.omdbapi.com/?s=${this.search}&apikey=${this.apiKey}`)
+                fetch(`https://www.omdbapi.com/?s=${this.search}&apikey=${this.apiKey}`)
                     .then(res => res.json())
                     .then(res => {
                         const { Search, totalResults, Response } = res

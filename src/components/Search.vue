@@ -2,7 +2,7 @@
     <div>
         <v-card
             class="mx-auto my-12"
-            min-width="640"
+            min-width=""
             max-width="960"
         >
             <v-card-text>
@@ -85,7 +85,7 @@ export default {
             if (!this.apiSearch) return
 
             return this.apiSearch.map(item => {
-            const Title = item.Title + ' ' + item.Year
+            const Title = item.Title + ' (' + item.Year + ') | ' + item.Type
             return Object.assign({}, item, { Title })
             })
         },

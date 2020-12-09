@@ -6,65 +6,67 @@
                 outlined 
                 shaped
                 class="mx-auto my-12 text-center"
-                min-width="640"
+                min-width=""
                 max-width="1280"
             >
-            <div class="d-inline-flex spacing-playground pa-6">
-                <div class="d-inline-flex-column align-self-center">
-                    <v-img
-                        contain
-                        :src="film.Poster"
-                        transition="scale-transition"
-                        width="300"
-                    >
-                    </v-img>
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            color="primary"
-                            small
-                            class="ma-2"
-                            dark
-                            @click="dialog = true"
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                            <v-icon>mdi-fullscreen</v-icon>
-                        </v-btn>
-                        </template>
-                        <span>Enlarge poster</span>
-                    </v-tooltip>
-                    
-                    <v-dialog
-                        v-model="dialog"
-                        max-width="500px"
-                    >
-                        <v-card>
+            <div class="d-md-inline-flex spacing-playground pa-6">
+                <div class="d-inline-flex align-self-center">
+                    <div class="flex-column">
                         <v-img
                             contain
                             :src="film.Poster"
-                        />
-                        <v-card-actions>
+                            transition="scale-transition"
+                            width="300"
+                        >
+                        </v-img>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                 color="primary"
-                                text
                                 small
-                                @click="dialog = false"
+                                class="ma-2"
+                                dark
+                                @click="dialog = true"
+                                v-bind="attrs"
+                                v-on="on"
                             >
-                                Close
+                                <v-icon>mdi-fullscreen</v-icon>
                             </v-btn>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                            </template>
+                            <span>Enlarge poster</span>
+                        </v-tooltip>
+                        
+                        <v-dialog
+                            v-model="dialog"
+                            max-width="500px"
+                        >
+                            <v-card>
+                            <v-img
+                                contain
+                                :src="film.Poster"
+                            />
+                            <v-card-actions>
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    small
+                                    @click="dialog = false"
+                                >
+                                    Close
+                                </v-btn>
+                            </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </div>
                 </div>
 
                 <div>
                     <v-card-title class="justify-center"><h2>{{ film.theTitle }}</h2></v-card-title>
                     <v-card-text>
-                    <h2 class="mt-2 mb-4 text--secondary">{{ film.Year }}</h2>
-                    <h3 class="mt-3 text--secondary">{{ film.Genre }}</h3>
+                    <h2 class="mt-2 text--secondary">{{ film.Year }}</h2>
+                    <h3 class="mt-4 text--secondary">{{ film.Genre }}</h3>
                     <h4 class="my-3 pr-4 d-inline-flex text--secondary"><font size="-1" class="px-1">Runtime:</font>{{ film.Runtime }}</h4>
-                    <h4 class="my-2 d-inline-flex text--secondary"><font size="-1" class="px-1">Rated:</font>{{ film.Rated }}</h4>
+                    <h4 class="my-3 d-inline-flex text--secondary"><font size="-1" class="px-1">Rated:</font>{{ film.Rated }}</h4>
                     <br>
                     <h4 class="my-2 d-inline-flex">
                         <v-img

@@ -9,11 +9,11 @@ export default new Vuetify ({
     theme: {
         themes: {
             light: {
-                primary: colors.amber.lighten2,
+                primary: colors.amber,
                 background: colors.indigo.lighten5,
             },
             dark: {
-                primary: colors.amber.lighten3,
+                primary: colors.amber.lighten1,
             },
         },
     },
